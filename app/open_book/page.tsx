@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Title_bar from "@/app/components/titlebar";
 
 export default function Home() {
     const handleCenterClick = () => {
@@ -22,20 +23,7 @@ export default function Home() {
                 />
             </div>
 
-            {/* 2. Titlebar Image (Top Layer, Fixed to Top) */}
-            <header className="absolute top-0 left-1/2 -translate-x-1/2 w-200 h-80 flex items-center justify-center z-10 pt-0">
-                {/* The left-1/2 and -translate-x-1/2 combo ensures perfect centering regardless of the width */}
-
-                <div className="relative w-full max-w-10xl h-full">
-                    <Image
-                        src="/title-01.png"
-                        alt="Website Title"
-                        fill
-                        style={{ objectFit: "contain" }}
-                        priority
-                    />
-                </div>
-            </header>
+            <Title_bar/>
 
             {/* 3. Centered Image Button (Top Layer, Centered) */}
             <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
