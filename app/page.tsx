@@ -25,7 +25,7 @@ export default function Home() {
         </div>
 
         {/* 2. Titlebar Image (Top Layer, Fixed to Top) */}
-          <header className="absolute top-0 left-0 w-full h-100 flex items-center justify-center z-10 pt-0">
+          <header className="absolute top-0 left-0 w-200 h-80 flex items-center justify-center z-10 pt-0">
               {/* Increased h-32 to h-64 (16rem/256px) */}
 
               <div className="relative w-full max-w-10xl h-full">
@@ -46,7 +46,7 @@ export default function Home() {
             but restore pointer-events-auto on the button itself so it remains clickable. */}
               <button
                   onClick={handleCenterClick}
-                  className="relative w-233 h-192 cursor-pointer hover:scale-105 transition-transform duration-200 pointer-events-auto"
+                  className="relative w-60 h-50 cursor-pointer hover:scale-105 transition-transform duration-200 pointer-events-auto"
               >
                   <Image
                       src="/closed book-01.png"
