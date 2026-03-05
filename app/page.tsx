@@ -24,12 +24,11 @@ export default function Home() {
           />
         </div>
 
-        {/* 2. Titlebar Image (Top Layer, Fixed to Top) */}
-          <header className="absolute top-0 left-0 w-200 h-80 flex items-center justify-center z-10 pt-0">
-              {/* Increased h-32 to h-64 (16rem/256px) */}
+          {/* 2. Titlebar Image (Top Layer, Fixed to Top) */}
+          <header className="absolute top-0 left-1/2 -translate-x-1/2 w-200 h-80 flex items-center justify-center z-10 pt-0">
+              {/* The left-1/2 and -translate-x-1/2 combo ensures perfect centering regardless of the width */}
 
               <div className="relative w-full max-w-10xl h-full">
-                  {/* Increased max-w-2xl to max-w-5xl to give the image room to expand horizontally */}
                   <Image
                       src="/title-01.png"
                       alt="Website Title"
