@@ -25,7 +25,7 @@ export default function Home() {
         </div>
 
         {/* 2. Titlebar Image (Top Layer, Fixed to Top) */}
-          <header className="absolute top-0 left-0 w-full h-200 flex items-center justify-center z-10 pt-0">
+          <header className="absolute top-0 left-0 w-full h-100 flex items-center justify-center z-10 pt-0">
               {/* Increased h-32 to h-64 (16rem/256px) */}
 
               <div className="relative w-full max-w-10xl h-full">
