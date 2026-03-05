@@ -8,7 +8,7 @@ export default function Home() {
 
     const router = useRouter();
   const handleCenterClick = () => {
-    router.push("/open_book");
+    router.push("/login");
   };
 
   return (
