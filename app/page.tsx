@@ -46,7 +46,7 @@ export default function Home() {
             but restore pointer-events-auto on the button itself so it remains clickable. */}
               <button
                   onClick={handleCenterClick}
-                  className="relative w-60 h-50 cursor-pointer hover:scale-105 transition-transform duration-200 pointer-events-auto"
+                  className="relative w-80 h-70 cursor-pointer hover:scale-105 transition-transform duration-200 pointer-events-auto"
               >
                   <Image
                       src="/closed book-01.png"
