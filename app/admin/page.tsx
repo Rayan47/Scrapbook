@@ -4,6 +4,7 @@ import { scrapbookEntries } from "@/src/db/schema";
 import ScrapbookClient from "./ScrapbookClient";
 import { Bar } from "@/app/components/titlebar";
 import {Press_Start_2P} from "next/font/google";
+import Link from "next/link";
 
 // Force Next.js to dynamically render this page so it always shows fresh DB data
 export const dynamic = "force-dynamic";
@@ -28,6 +29,18 @@ export default async function AdminPage() {
         `,
                   backgroundSize: "40px 40px"
               }}>
+            
+            {/* Back Button (Top Left) */}
+            <Link
+                href="/open_book"
+                className="absolute top-8 left-8 z-50 bg-[#e0c097] border-4 border-[#5d4037] text-[#5d4037] 
+                font-bold py-2 px-4 rounded-sm shadow-[4px_4px_0px_0px_rgba(93,64,55,1)] 
+                active:translate-y-[2px] active:shadow-[2px_2px_0px_0px_rgba(93,64,55,1)] transition-all
+                font-mono text-lg hover:bg-[#d7b486]"
+            >
+                &lt; BACK
+            </Link>
+
             <Bar>Dashboard</Bar>
             {/* Pass the DB data to our interactive client component */}
             <ScrapbookClient initialEntries={data} />
