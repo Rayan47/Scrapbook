@@ -19,6 +19,7 @@ export default function RetroLogin() {
 
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         router.push("/open_book");
 
     };
