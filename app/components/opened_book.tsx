@@ -54,7 +54,7 @@ export default function Scrapbook({ entries }: ScrapbookProps) {
             {/* Slot 1: Far Left Photo */}
             {getEntry(0) && (
                 <>
-                    <div className="absolute top-[15%] left-[6.5%] w-[15.5%] h-[38%] overflow-hidden group cursor-pointer">
+                    <div className="absolute top-[9.8%] left-[6.5%] w-[14.5%] h-[45%] overflow-hidden group cursor-pointer">
                         <Image
                             src={getEntry(0).url}
                             alt="Memory 1"
@@ -74,7 +74,7 @@ export default function Scrapbook({ entries }: ScrapbookProps) {
             {/* Slot 2: Inner Left Photo */}
             {getEntry(1) && (
                 <>
-                    <div className="absolute top-[15%] left-[30.5%] w-[15.5%] h-[38%] overflow-hidden group cursor-pointer">
+                    <div className="absolute top-[10.2%] left-[30.5%] w-[14.5%] h-[45%] overflow-hidden group cursor-pointer">
                         <Image
                             src={getEntry(1).url}
                             alt="Memory 2"
@@ -99,7 +99,7 @@ export default function Scrapbook({ entries }: ScrapbookProps) {
             {/* Slot 3: Inner Right Photo */}
             {getEntry(2) && (
                 <>
-                    <div className="absolute top-[15%] left-[56%] w-[15.5%] h-[38%] overflow-hidden group cursor-pointer">
+                    <div className="absolute top-[10.75%] left-[55.9%] w-[14.5%] h-[45%] overflow-hidden group cursor-pointer">
                         <Image
                             src={getEntry(2).url}
                             alt="Memory 3"
@@ -119,7 +119,7 @@ export default function Scrapbook({ entries }: ScrapbookProps) {
             {/* Slot 4: Far Right Photo */}
             {getEntry(3) && (
                 <>
-                    <div className="absolute top-[15%] left-[78%] w-[15.5%] h-[38%] overflow-hidden group cursor-pointer">
+                    <div className="absolute top-[10.75%] left-[78%] w-[14.5%] h-[45%] overflow-hidden group cursor-pointer">
                         <Image
                             src={getEntry(3).url}
                             alt="Memory 4"

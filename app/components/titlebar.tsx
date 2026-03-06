@@ -8,6 +8,11 @@ const pixelFont = Press_Start_2P({
 });
 
 export default function Title_bar() {
+    return <Bar>THANNE THANNE</Bar>;
+}
+
+
+export function Bar({ children }: { children: string }) {
     return (
         // 1. Removed the fixed height classes (h-24, h-32, etc.) so it naturally shrinks.
         <header className="absolute top-0 left-1/2 -translate-x-1/2 w-[62vw] max-w-[777px] z-10 mt-4">
@@ -20,10 +25,7 @@ export default function Title_bar() {
                     className={`${pixelFont.className} flex w-full justify-around text-2xl md:text-4xl lg:text-5xl tracking-widest leading-none`}
                 >
           <span className="text-[#f3eed5] drop-shadow-sm" style={textOutlineStyle}>
-            THANNE
-          </span>
-                    <span className="text-[#f3eed5] drop-shadow-sm" style={textOutlineStyle}>
-            THANNE
+            {children}
           </span>
                 </h1>
 
@@ -31,6 +33,8 @@ export default function Title_bar() {
         </header>
     );
 }
+
+
 
 // Custom inline style to handle the text stroke
 const textOutlineStyle = {
