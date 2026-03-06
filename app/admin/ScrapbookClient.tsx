@@ -6,6 +6,7 @@ import { UploadButton } from "@/src/utils/uploadthing";
 import { saveNewUploads, syncEntries, deleteEntry } from "@/actions/scrapbook";
 import type { SelectEntry } from "@/src/db/schema";
 import { ClientUploadedFileData } from "uploadthing/types";
+import "@uploadthing/react/styles.css";
 
 interface Props {
     initialEntries: SelectEntry[];
@@ -81,7 +82,7 @@ export default function ScrapbookClient({ initialEntries }: Props) {
                     onUploadError={(error: Error) => alert(error.message)}
                     content={{
                         button({ ready }) {
-                            if (ready) return "Click here to choose your image";
+                            if (ready) return "Choose an image to upload";
                             return "Getting ready...";
                         },
                     }}
@@ -95,6 +96,8 @@ export default function ScrapbookClient({ initialEntries }: Props) {
                             fontFamily: "monospace",
                             fontWeight: "bold",
                             padding: "0.5rem 1rem",
+                            width: "auto", // Allow button to grow with text
+                            height: "auto", // Allow button to grow with text
                         },
                         container: {
                             display: "flex",

@@ -15,7 +15,7 @@ export default function Title_bar() {
 export function Bar({ children }: { children: string }) {
     return (
         // 1. Removed the fixed height classes (h-24, h-32, etc.) so it naturally shrinks.
-        <header className="absolute top-0 left-1/2 -translate-x-1/2 w-[62vw] max-w-[777px] z-10 mt-4">
+        <header className="w-[62vw] max-w-[777px] z-10 mt-4 mx-auto">
 
             {/* 2. Added tight vertical padding (py-3 md:py-5) to shrink the box's height around the text */}
             <div className="w-full bg-[#76b3cf] border-[8px] border-black flex items-center justify-center py-3 md:py-5 px-4 md:px-8">

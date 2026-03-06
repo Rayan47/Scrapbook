@@ -19,7 +19,7 @@ export default async function AdminPage() {
     const data = await db.select().from(scrapbookEntries);
 
     return (
-        <main className={`min-h-screen flex flex-col items-center justify-start pt-32 ${pixelFont.className}`}
+        <main className={`min-h-screen flex flex-col items-center justify-start pt-4 gap-8 ${pixelFont.className} relative`}
               style={{
                   backgroundColor: "#fdf3ce", // Light yellow background
                   backgroundImage: `
