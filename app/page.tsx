@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import Title_bar from "@/app/components/titlebar";
+import BackgroundBuilder from "@/app/components/bg";
 
 export default function Home() {
 
@@ -12,20 +12,7 @@ export default function Home() {
   };
 
   return (
-      <main className="relative w-full h-screen overflow-hidden">
-
-        {/* 1. Static Background Image (Bottom Layer) */}
-        <div className="absolute inset-0 -z-10">
-          <Image
-              src="/background-01.png"
-              alt="Static Background"
-              fill
-              style={{ objectFit: "cover" }}
-              priority
-          />
-        </div>
-
-        <Title_bar/>
+        <BackgroundBuilder>
 
           {/* 3. Centered Image Button (Top Layer, Centered) */}
           <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
@@ -43,7 +30,7 @@ export default function Home() {
                   />
               </button>
           </div>
+        </BackgroundBuilder>
 
-      </main>
   );
 }

@@ -10,10 +10,36 @@ interface ScrapbookProps {
 
 export default function Scrapbook({ entries }: ScrapbookProps) {
     const [currentPage, setCurrentPage] = useState(0);
+    const [openGroupId, setOpenGroupId] = useState<number | null>(null);
+    const [carouselIndex, setCarouselIndex] = useState(0);
+
     const itemsPerPage = 4;
 
-    const totalPages = Math.ceil(entries.length / itemsPerPage);
-    const currentEntries = entries.slice(
+    // Group entries by groupId
+    const groupedEntries = entries.reduce((acc, entry) => {
+        const groupId = entry.groupId;
+        if (groupId === null || groupId === undefined) return acc;
+        
+        if (!acc[groupId]) {
+            acc[groupId] = [];
+        }
+        acc[groupId].push(entry);
+        return acc;
+    }, {} as Record<number, SelectEntry[]>);
+
+    // Sort entries within each group by groupOrderIndex
+    Object.keys(groupedEntries).forEach(key => {
+        const groupId = Number(key);
+        groupedEntries[groupId].sort((a, b) => a.groupOrderIndex - b.groupOrderIndex);
+    });
+
+    // Get thumbnails (first image of each group) and sort them by their groupId
+    const thumbnailEntries = Object.values(groupedEntries)
+        .map(group => group[0])
+        .sort((a, b) => (a.groupId || 0) - (b.groupId || 0));
+
+    const totalPages = Math.ceil(thumbnailEntries.length / itemsPerPage);
+    const currentEntries = thumbnailEntries.slice(
         currentPage * itemsPerPage,
         (currentPage + 1) * itemsPerPage
     );
@@ -27,6 +53,35 @@ export default function Scrapbook({ entries }: ScrapbookProps) {
     const handlePrev = () => {
         if (currentPage > 0) {
             setCurrentPage((prev) => prev - 1);
+        }
+    };
+
+    const handleOpenCarousel = (groupId: number | null) => {
+        if (groupId !== null) {
+            setOpenGroupId(groupId);
+            setCarouselIndex(0);
+        }
+    };
+
+    const handleCloseCarousel = () => {
+        setOpenGroupId(null);
+    };
+
+    const getGroupedImages = () => {
+        if (openGroupId === null) return [];
+        return groupedEntries[openGroupId] || [];
+    };
+
+    const handleCarouselNext = () => {
+        const groupedImages = getGroupedImages();
+        if (carouselIndex < groupedImages.length - 1) {
+            setCarouselIndex(prev => prev + 1);
+        }
+    };
+
+    const handleCarouselPrev = () => {
+        if (carouselIndex > 0) {
+            setCarouselIndex(prev => prev - 1);
         }
     };
 
@@ -54,7 +109,7 @@ export default function Scrapbook({ entries }: ScrapbookProps) {
             {/* Slot 1: Far Left Photo */}
             {getEntry(0) && (
                 <>
-                    <div className="absolute top-[9.8%] left-[6.5%] w-[14.5%] h-[45%] overflow-hidden group cursor-pointer">
+                    <div className="absolute top-[9.8%] left-[6.5%] w-[14.5%] h-[45%] overflow-hidden group cursor-pointer" onClick={() => handleOpenCarousel(getEntry(0).groupId)}>
                         <Image
                             src={getEntry(0).url}
                             alt="Memory 1"
@@ -74,7 +129,7 @@ export default function Scrapbook({ entries }: ScrapbookProps) {
             {/* Slot 2: Inner Left Photo */}
             {getEntry(1) && (
                 <>
-                    <div className="absolute top-[10.2%] left-[30.5%] w-[14.5%] h-[45%] overflow-hidden group cursor-pointer">
+                    <div className="absolute top-[10.2%] left-[30.5%] w-[14.5%] h-[45%] overflow-hidden group cursor-pointer" onClick={() => handleOpenCarousel(getEntry(1).groupId)}>
                         <Image
                             src={getEntry(1).url}
                             alt="Memory 2"
@@ -99,7 +154,7 @@ export default function Scrapbook({ entries }: ScrapbookProps) {
             {/* Slot 3: Inner Right Photo */}
             {getEntry(2) && (
                 <>
-                    <div className="absolute top-[10.75%] left-[55.9%] w-[14.5%] h-[45%] overflow-hidden group cursor-pointer">
+                    <div className="absolute top-[10.75%] left-[55.9%] w-[14.5%] h-[45%] overflow-hidden group cursor-pointer" onClick={() => handleOpenCarousel(getEntry(2).groupId)}>
                         <Image
                             src={getEntry(2).url}
                             alt="Memory 3"
@@ -119,7 +174,7 @@ export default function Scrapbook({ entries }: ScrapbookProps) {
             {/* Slot 4: Far Right Photo */}
             {getEntry(3) && (
                 <>
-                    <div className="absolute top-[10.75%] left-[78%] w-[14.5%] h-[45%] overflow-hidden group cursor-pointer">
+                    <div className="absolute top-[10.75%] left-[78%] w-[14.5%] h-[45%] overflow-hidden group cursor-pointer" onClick={() => handleOpenCarousel(getEntry(3).groupId)}>
                         <Image
                             src={getEntry(3).url}
                             alt="Memory 4"
@@ -175,6 +230,24 @@ export default function Scrapbook({ entries }: ScrapbookProps) {
                 PAGE {currentPage + 1} / {totalPages || 1}
             </div>
 
+            {/* Carousel Modal */}
+            {openGroupId !== null && (
+                <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+                    <div className="relative w-full max-w-3xl">
+                        <button onClick={handleCloseCarousel} className="absolute -top-10 right-0 text-white text-3xl">&times;</button>
+                        <div className="relative aspect-video">
+                            <Image
+                                src={getGroupedImages()[carouselIndex]?.url || ""}
+                                alt="Carousel Image"
+                                fill
+                                className="object-contain"
+                            />
+                        </div>
+                        <button onClick={handleCarouselPrev} disabled={carouselIndex === 0} className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white text-3xl disabled:opacity-50">&lt;</button>
+                        <button onClick={handleCarouselNext} disabled={carouselIndex === getGroupedImages().length - 1} className="absolute top-1/2 right-4 transform -translate-y-1/2 text-white text-3xl disabled:opacity-50">&gt;</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

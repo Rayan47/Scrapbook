@@ -1,10 +1,11 @@
 // app/admin/page.tsx
 import { db } from "@/src/db";
-import { scrapbookEntries } from "@/src/db/schema";
+import { scrapbookEntries, letters } from "@/src/db/schema";
 import ScrapbookClient from "./ScrapbookClient";
 import { Bar } from "@/app/components/titlebar";
 import {Press_Start_2P} from "next/font/google";
 import Link from "next/link";
+import { asc } from "drizzle-orm";
 
 // Force Next.js to dynamically render this page so it always shows fresh DB data
 export const dynamic = "force-dynamic";
@@ -16,8 +17,9 @@ const pixelFont = Press_Start_2P({
 });
 
 export default async function AdminPage() {
-    // Fetch existing entries from Turso
-    const data = await db.select().from(scrapbookEntries);
+    // Fetch existing entries from Turso, ordered by group and then by group order
+    const entryData = await db.select().from(scrapbookEntries).orderBy(asc(scrapbookEntries.groupId), asc(scrapbookEntries.groupOrderIndex));
+    const letterData = await db.select().from(letters).orderBy(asc(letters.createdAt));
 
     return (
         <main className={`min-h-screen flex flex-col items-center justify-start pt-4 gap-8 ${pixelFont.className} relative`}
@@ -43,7 +45,7 @@ export default async function AdminPage() {
 
             <Bar>Dashboard</Bar>
             {/* Pass the DB data to our interactive client component */}
-            <ScrapbookClient initialEntries={data} />
+            <ScrapbookClient initialEntries={entryData} initialLetters={letterData} />
         </main>
     );
 }

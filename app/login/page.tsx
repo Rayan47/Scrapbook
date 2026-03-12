@@ -1,17 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { Press_Start_2P } from "next/font/google";
 import { useRouter } from "next/navigation";
-
+import BackgroundBuilder from "@/app/components/bg";
 
 // Initialize the retro font
-const pixelFont = Press_Start_2P({
-    weight: "400",
-    subsets: ["latin"],
-    // Adjust font size slightly as this font renders quite large
-    variable: '--font-pixel'
-});
+
 
 export default function RetroLogin() {
     const [password, setPassword] = useState("");
@@ -26,20 +20,10 @@ export default function RetroLogin() {
 
     return (
         // 1. Grid Background
-        <main
-            className={`min-h-screen flex items-center justify-center ${pixelFont.className}`}
-            style={{
-                backgroundColor: "#fdf3ce", // Light yellow background
-                backgroundImage: `
-          linear-gradient(to right, white 2px, transparent 2px),
-          linear-gradient(to bottom, white 2px, transparent 2px)
-        `,
-                backgroundSize: "40px 40px"
-            }}
-        >
+        <BackgroundBuilder>
 
             {/* 2. Main Window Container */}
-            <div className="w-[450px] max-w-[90vw] border-[4px] border-black rounded-3xl overflow-hidden shadow-sm bg-[#f3ecdc]">
+            <div className="w-[450px] ml-auto mr-auto mt-[3rem] mb-auto max-w-[90vw] border-[4px] border-black rounded-3xl overflow-hidden shadow-sm bg-[#f3ecdc]">
 
                 {/* 3. Title Bar */}
                 <div className="bg-[#73b6cf] border-b-[4px] border-black px-4 py-3 flex justify-between items-center">
@@ -83,6 +67,6 @@ export default function RetroLogin() {
                 </form>
             </div>
 
-        </main>
+        </BackgroundBuilder>
     );
 }
