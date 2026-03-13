@@ -7,12 +7,11 @@ import {asc} from "drizzle-orm";
 import Link from "next/link";
 
 // Initialize the retro font
-
+export const fetchCache = 'force-no-store';
 
 export default async function Letters() {
 
     const fetched = await db.select().from(letters).orderBy(asc(letters.id));
-
     return (
         <div>
         <Link
