@@ -11,10 +11,23 @@ export default function RetroLogin() {
     const [password, setPassword] = useState("");
     const router = useRouter();
 
-    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        router.push("/open_book");
+        const res = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password }),
+        });
+
+        if (res.ok) {
+            // Redirect to the protected area on success
+            router.push('/open_book');
+            router.refresh(); // Force refresh to update middleware state
+        } else {
+            const data = await res.json();
+            alert(data.message || 'Login failed');
+        }
 
     };
 
