@@ -8,6 +8,14 @@ interface ScrapbookProps {
     entries: SelectEntry[];
 }
 
+import { Press_Start_2P } from "next/font/google";
+
+// Initialize the font
+const pressStart = Press_Start_2P({
+    weight: "400",
+    subsets: ["latin"],
+});
+
 export default function Scrapbook({ entries }: ScrapbookProps) {
     const [currentPage, setCurrentPage] = useState(0);
     const [openGroupId, setOpenGroupId] = useState<number | null>(null);
@@ -232,10 +240,20 @@ export default function Scrapbook({ entries }: ScrapbookProps) {
 
             {/* Carousel Modal */}
             {openGroupId !== null && (
-                <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-                    <div className="relative w-full max-w-3xl">
-                        <button onClick={handleCloseCarousel} className="absolute -top-10 right-0 text-white text-3xl">&times;</button>
-                        <div className="relative aspect-video">
+                <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-6">
+                    {/* Retro 8-Bit Main Frame */}
+                    <div className="relative w-full max-w-3xl bg-amber-700 border-[8px] border-black shadow-[12px_12px_0_0_rgba(0,0,0,1)] p-4">
+
+                        {/* Chunky Retro Close Button */}
+                        <button
+                            onClick={handleCloseCarousel}
+                            className={`absolute -top-8 -right-8 w-14 h-14 bg-red-500 border-[4px] border-black text-black text-2xl flex items-center justify-center hover:bg-red-600 active:translate-y-1 active:translate-x-1 active:shadow-none shadow-[6px_6px_0_0_rgba(0,0,0,1)] z-10 ${pressStart.className}`}
+                        >
+                            &times;
+                        </button>
+
+                        {/* Image Container with Inner Border */}
+                        <div className="relative aspect-video border-[4px] border-black bg-black">
                             <Image
                                 src={getGroupedImages()[carouselIndex]?.url || ""}
                                 alt="Carousel Image"
@@ -243,8 +261,24 @@ export default function Scrapbook({ entries }: ScrapbookProps) {
                                 className="object-contain"
                             />
                         </div>
-                        <button onClick={handleCarouselPrev} disabled={carouselIndex === 0} className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white text-3xl disabled:opacity-50">&lt;</button>
-                        <button onClick={handleCarouselNext} disabled={carouselIndex === getGroupedImages().length - 1} className="absolute top-1/2 right-4 transform -translate-y-1/2 text-white text-3xl disabled:opacity-50">&gt;</button>
+
+                        {/* Retro Prev Button */}
+                        <button
+                            onClick={handleCarouselPrev}
+                            disabled={carouselIndex === 0}
+                            className={`absolute top-1/2 -left-8 transform -translate-y-1/2 w-14 h-14 bg-white border-[4px] border-black text-black text-xl flex items-center justify-center disabled:opacity-50 disabled:active:translate-y-[-50%] disabled:active:translate-x-0 disabled:active:shadow-[6px_6px_0_0_rgba(0,0,0,1)] hover:bg-gray-200 active:translate-y-[calc(-50%+4px)] active:translate-x-1 active:shadow-none shadow-[6px_6px_0_0_rgba(0,0,0,1)] z-10 ${pressStart.className}`}
+                        >
+                            &lt;
+                        </button>
+
+                        {/* Retro Next Button */}
+                        <button
+                            onClick={handleCarouselNext}
+                            disabled={carouselIndex === getGroupedImages().length - 1}
+                            className={`absolute top-1/2 -right-8 transform -translate-y-1/2 w-14 h-14 bg-white border-[4px] border-black text-black text-xl flex items-center justify-center disabled:opacity-50 disabled:active:translate-y-[-50%] disabled:active:translate-x-0 disabled:active:shadow-[6px_6px_0_0_rgba(0,0,0,1)] hover:bg-gray-200 active:translate-y-[calc(-50%+4px)] active:translate-x-1 active:shadow-none shadow-[6px_6px_0_0_rgba(0,0,0,1)] z-10 ${pressStart.className}`}
+                        >
+                            &gt;
+                        </button>
                     </div>
                 </div>
             )}
