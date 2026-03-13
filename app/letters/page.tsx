@@ -7,7 +7,8 @@ import {asc} from "drizzle-orm";
 import Link from "next/link";
 
 // Initialize the retro font
-export const fetchCache = 'force-no-store';
+// Make the page dynamically rendered to always get fresh data
+export const dynamic = "force-dynamic";
 
 export default async function Letters() {
 
